@@ -1,5 +1,3 @@
-import {VOICE10_SRC, VOICE11_SRC} from '../embedded/index.js';
-
 export default [
   {
     name:'voice1.m4a',
@@ -31,7 +29,7 @@ export default [
   },
   {
     name:'voice10.m4a',
-    src:VOICE10_SRC,
+    src:'/voice10.m4a',
     date:'2026-08-30T11:26:58',
     duration:15.7,
     label:'Random chaos 😭',
@@ -39,7 +37,7 @@ export default [
   },
   {
     name:'voice11.m4a',
-    src:VOICE11_SRC,
+    src:'/voice11.m4a',
     date:'2026-08-30T11:27:25',
     duration:16.1,
     label:'Gate or dramatic entry?',
