@@ -5,6 +5,7 @@ import {gsap} from 'gsap';
 import {ScrollTrigger} from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
 import {VOICES, chapters} from './data/archive.js';
+import {STICKER_ATLAS} from './data/stickerAtlas.js';
 import {loadBundle} from './lib/media.js';
 import {ThreeHero, Reveal, VoiceCard} from './components/Experience.js';
 
@@ -21,13 +22,14 @@ const moments = [
 ];
 
 const topStickers = [
-  {src:'/stickers/top-01.webp',uses:301,label:'the undefeated one'},
-  {src:'/stickers/top-02.webp',uses:37,label:'hide-the-face energy'},
-  {src:'/stickers/top-03.webp',uses:35,label:'tiny blanket reaction'},
-  {src:'/stickers/top-04.webp',uses:35,label:'maximum side-eye'},
-  {src:'/stickers/top-05.webp',uses:30,label:'laughing through it'},
-  {src:'/stickers/top-06.webp',uses:28,label:'serious tiny face'}
+  {uses:301,label:'the undefeated one'},
+  {uses:37,label:'hide-the-face energy'},
+  {uses:35,label:'tiny blanket reaction'},
+  {uses:35,label:'maximum side-eye'},
+  {uses:30,label:'laughing through it'},
+  {uses:28,label:'serious tiny face'}
 ];
+const stickerPos=i=>({backgroundImage:`url(${STICKER_ATLAS})`,backgroundSize:'300% 200%',backgroundPosition:`${(i%3)*50}% ${i<3?0:100}%`});
 
 export default function App(){
   const [bundle,setBundle]=useState(null);
@@ -76,7 +78,7 @@ export default function App(){
       <section id="voices" className="section"><div className="wrap"><${Reveal}><div className="kicker">04 · six voices we kept</div><h2 className="display">Four that were already here.<br/><em>Two new ones joined them.</em></h2><p className="lead">Nothing was replaced: four context-selected Aishu voice memories from the archive, plus the two candid Aug 30 voices you added later.</p></${Reveal}><div className="voiceGrid">${VOICES.map(v=>html`<${VoiceCard} v=${v} assets=${bundle?.urls||{}}/>`)}</div></div></section>
 
       <section id="stickers" className="section stickerSection"><div className="wrap"><${Reveal}><div className="kicker">05 · our reaction language</div><h2 className="display">Not all 1,203.<br/><em>Just the ones that kept coming back.</em></h2><p className="lead">The exported archive contains 1,203 WebP sticker sends. Exact-file matching found 131 unique sticker files. These are the six most repeated — ranked by how often the same sticker actually appears in the export.</p></${Reveal}>
-        <div className="topStickerGrid">${topStickers.map((s,i)=>html`<${motion.article} className="stickerPick" initial=${{opacity:0,y:18}} whileInView=${{opacity:1,y:0}} viewport=${{once:true}} transition=${{delay:i*.055}} whileHover=${{y:-7,rotate:i%2?1.2:-1.2}}><div className="stickerRank">#${i+1}</div><img src=${s.src} alt=${`Recurring sticker ${i+1}`} loading="lazy"/><div className="stickerCount">${s.uses}×</div><small>${s.label}</small></${motion.article}>`)}</div>
+        <div className="topStickerGrid">${topStickers.map((s,i)=>html`<${motion.article} className="stickerPick" initial=${{opacity:0,y:18}} whileInView=${{opacity:1,y:0}} viewport=${{once:true}} transition=${{delay:i*.055}} whileHover=${{y:-7,rotate:i%2?1.2:-1.2}}><div className="stickerRank">#${i+1}</div><div className="stickerVisual" style=${stickerPos(i)} role="img" aria-label=${`Recurring sticker ${i+1}`}></div><div className="stickerCount">${s.uses}×</div><small>${s.label}</small></${motion.article}>`)}</div>
         <p className="lead archiveNote">The archive also contains 395 photos and 41 video memories, but they are intentionally not dumped here. This page keeps only the pieces that add to the story.</p>
       </div></section>
 
