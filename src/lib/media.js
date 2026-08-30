@@ -14,8 +14,7 @@ const looksLikeAudio=entry=>{
   return mime.startsWith('audio/') || /\.(m4a|mp4|aac|opus|ogg|webm|mp3|wav)$/.test(name);
 };
 
-export async function loadBundle(){
-  const buf=b64ToArrayBuffer(MEDIA_B64);
+function parseBundle(buf){
   const dv=new DataView(buf);
   const headerLength=dv.getUint32(0,true);
   const header=JSON.parse(new TextDecoder().decode(buf.slice(4,4+headerLength)));
@@ -32,12 +31,25 @@ export async function loadBundle(){
     if(looksLikeAudio(entry)) audioUrls.push({name:entry.name,url,mime:entry.mime||blob.type});
   }
 
-  // Older archive voice cards used friendly names while the packed binary can
-  // retain original WhatsApp filenames. Keep exact matches first, then alias
-  // the first four packed audio entries in their original selected order.
   LEGACY_VOICE_NAMES.forEach((name,index)=>{
     if(!urls[name] && audioUrls[index]) urls[name]=audioUrls[index].url;
   });
 
   return {header,urls,audioUrls};
+}
+
+export async function loadBundle(){
+  // Production source of truth: the complete binary pack in /public.
+  // The embedded copy is only a compatibility fallback for old previews.
+  try{
+    const response=await fetch('/media.bin',{cache:'no-store'});
+    if(response.ok){
+      const buf=await response.arrayBuffer();
+      if(buf.byteLength>32) return parseBundle(buf);
+    }
+  }catch(err){
+    console.warn('Could not load /media.bin; trying compatibility fallback',err);
+  }
+
+  return parseBundle(b64ToArrayBuffer(MEDIA_B64));
 }
