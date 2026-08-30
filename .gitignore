@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.vercel/
+.env*
+.DS_Store
+public/media.bin
+public/voice10.m4a
+public/voice11.m4a
