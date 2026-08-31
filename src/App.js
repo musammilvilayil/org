@@ -64,8 +64,8 @@ export default function App(){
 
     <main>
       <section id="signal" className="section"><div className="wrap"><${Reveal}><div className="kicker">01 · our signal</div><h2 className="display">The numbers are ridiculous.<br/><em>The ordinary moments are better.</em></h2><p className="lead">We talked. A lot. Some of it mattered. Some of it was complete nonsense. Both became part of the same story.</p></${Reveal}>
-        <div className="stats">${[['60,617','preserved messages'],['>60,617','actual conversation'],['7,717','voice notes in archive'],['91','continuous days']].map((x,i)=>html`<${motion.div} className="stat" initial=${{opacity:0,y:20}} whileInView=${{opacity:1,y:0}} viewport=${{once:true}} transition=${{delay:i*.07}}><b>${x[0]}</b><span>${x[1]}</span></${motion.div}>`)}</div>
-        <p className="lead archiveNote">60,617 is the exported, preserved count — not a claim about every message ever sent. Disappearing messages had already vanished before export, so the real lifetime conversation is larger than 60,617. The exact missing total cannot be recovered from this archive.</p>
+        <div className="stats">${[['160K','messages across our conversation'],['60,617','preserved in export'],['7,717','voice notes in archive'],['91','continuous days']].map((x,i)=>html`<${motion.div} className="stat" initial=${{opacity:0,y:20}} whileInView=${{opacity:1,y:0}} viewport=${{once:true}} transition=${{delay:i*.07}}><b>${x[0]}</b><span>${x[1]}</span></${motion.div}>`)}</div>
+        <p className="lead archiveNote">160K is the conversation count we are using for the full chat history. The exported archive preserves 60,617 messages; disappearing messages had already vanished before export, so the preserved file is lower than the lifetime conversation count.</p>
         <div className="split"><div><strong>33,781</strong><small>Musku preserved messages</small></div><div className="splitLine"><i></i><b></b></div><div><strong>26,836</strong><small>Aishu preserved messages</small></div></div>
       </div></section>
 
@@ -90,6 +90,6 @@ export default function App(){
       <section id="quiet" className="quiet"><div className="quietCard"><div className="kicker">the quiet part</div><h2>Glad you’re here.</h2><p>This website does not need an answer from you. No pressure, no prediction, no hidden question inside a button. It is only a small place for ordinary things that became memorable.</p><div className="finalLine">Whatever the future is, let it arrive without forcing it. 🤍</div></div></section>
     </main>
 
-    <footer><span>60,617 preserved messages · actual conversation larger because disappearing messages are not recoverable</span><span>•</span><span>Aishu × Musku · 2026</span></footer>
+    <footer><span>160K messages · 60,617 preserved in export</span><span>•</span><span>Aishu × Musku · 2026</span></footer>
   </div>`;
 }
